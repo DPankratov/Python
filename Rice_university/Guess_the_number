@@ -1,0 +1,84 @@
+# template for "Guess the number" mini-project
+# input will come from buttons and an input field
+# all output for the game will be printed in the console
+
+import simplegui
+import random
+import math
+
+# initialize global variables used in your code here
+secret_number = 0
+number_range = 100
+guesses_left = 0
+
+
+# helper function to start and restart the game
+def new_game():
+    global secret_number
+    global number_range
+    global guesses_left
+    
+    secret_number = random.randrange(0, number_range)
+    
+    if number_range == 100:
+        guesses_left = 7
+    elif number_range == 1000:
+        guesses_left = 10
+    
+    print "New game. Range is from 0 to", number_range
+    print "Number of remaining guesses is", guesses_left, "\n"
+    
+
+# define event handlers for control panel
+def range100():
+    # button that changes the range to [0,100) and starts a new game 
+    global number_range
+    
+    number_range = 100
+    new_game()
+
+def range1000():
+    global number_range
+    
+    number_range = 1000
+    new_game()
+    
+def input_guess(guess):
+    # main game logic goes here	
+    global secret_number
+    global guesses_left
+    
+    guess = int(guess)
+    print "Guess was", str(guess)
+    
+    guesses_left = guesses_left - 1
+    print "Number of remaining guesses is", guesses_left
+    
+    if int(guess) < secret_number:
+        print "Higher! \n"
+    elif int(guess) > secret_number:
+        print "Lower! \n"
+    else:
+        print "Correct! \n"
+        new_game()
+        
+    if guesses_left == 0:
+        print "Game over. You didn't guess the number in time!"
+        print "Correct number was", secret_number, "\n"
+        new_game()
+    
+# create frame
+frame = simplegui.create_frame("Guess the number", 200, 200)
+
+# register event handlers for control elements and start frame
+frame.add_button("Range is [0, 100)", range100, 200)
+frame.add_button("Range is [0, 1000", range1000, 200)
+frame.add_input("Enter a guess", input_guess, 200)
+
+frame.start()
+
+# call new_game 
+new_game()
+
+
+# always remember to check your completed program against the grading rubric
