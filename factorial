@@ -1,0 +1,7 @@
+def factorial(x):
+    total = 1
+    for i in range(x):
+        i += 1
+        total = i * total
+    return total
+print factorial(3)
