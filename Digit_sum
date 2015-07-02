@@ -1,0 +1,17 @@
+def digit_sum(n):
+    total = 0
+    while n!=0:
+        total += n % 10
+        n //= 10
+    return total
+print digit_sum(321)
+    
+    
+    
+def my_digit_sum(n):
+    total = 0
+    for element in str(n):
+        total += int(element)
+    return total
+print my_digit_sum(123)
+        
